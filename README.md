@@ -79,3 +79,7 @@ To build for Windows, run:
     yarn do src/electron/build
 
 Unlike the Android and Apple clients, the Windows build uses the Electron framework, rather than Cordova.
+
+### Support
+
+For technical support, please file a GitHub issue. For user support and troubleshooting content see: [support.getoutline.org](https://support.getoutline.org)
