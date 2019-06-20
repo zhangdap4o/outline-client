@@ -162,7 +162,7 @@ function cordovaUploadSymbols() {
   if (platform !== 'android' || !isBeta) {
     return Promise.resolve('Not uploading beta crash symbols');
   }
-  const uploadSymbolsCmd = 'pushd platforms/android && ./gradlew crashlyticsUploadSymbols';
+  const uploadSymbolsCmd = 'cd platforms/android && ./gradlew crashlyticsUploadSymbols';
   return runCommand(isRelease ? `${uploadSymbolsCmd}Release` : `${uploadSymbolsCmd}Debug`);
 }
 
