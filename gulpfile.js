@@ -162,7 +162,9 @@ function cordovaUploadSymbols() {
   if (platform !== 'android' || !isBeta) {
     return Promise.resolve('Not uploading beta crash symbols');
   }
-  const uploadSymbolsCmd = 'cd platforms/android && ./gradlew crashlyticsUploadSymbols';
+  const buildPath = 'app/build/intermediates/transforms';
+  const uploadSymbolsCmd = `cd platforms/android && cp -R ${buildPath}/mergeJniLibs ${
+      buildPath}/stripDebugSymbol && ./gradlew crashlyticsUploadSymbols`;
   return runCommand(isRelease ? `${uploadSymbolsCmd}Release` : `${uploadSymbolsCmd}Debug`);
 }
 
@@ -189,7 +191,13 @@ function cordovaCompile() {
 
 const cordovaBuild = gulp.series(cordovaPrepare, cordovaConfigureBeta, xcode, cordovaCompile);
 
-const packageWithCordova = gulp.series(cordovaPlatformAdd, cordovaBuild, cordovaUploadSymbols);
+function cordovaPrintPaths() {
+  return runCommand(
+      'ls /home/travis/build/Jigsaw-Code/outline-client/platforms/android/app/build/intermediates/transforms/*/*/*/*/* || echo DONE ');
+}
+
+const packageWithCordova =
+    gulp.series(cordovaPlatformAdd, cordovaBuild, cordovaPrintPaths, cordovaUploadSymbols);
 
 //////////////////
 //////////////////
