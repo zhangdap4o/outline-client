@@ -10,7 +10,6 @@
     "sentry": "@sentry/electron depends on @sentry/browser; ensure our versions match, otherwise the build will fail. See: https://github.com/getsentry/sentry-javascript/issues/1853"
   },
   "dependencies": {
-    "@sentry/browser": "~5.10.2",
     "@sentry/electron": "1.2.1",
     "ShadowsocksConfig": "Jigsaw-Code/outline-shadowsocksconfig#^v0.0.9",
     "auto-launch": "^5.0.5",
